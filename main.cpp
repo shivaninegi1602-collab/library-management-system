@@ -38,7 +38,7 @@ public:
     }
 
     // Memeber function to display a book
-    void displayBook() {
+    void displayBook() const {
         cout << endl;
         cout << left
              << setw(10) << "Book ID"
@@ -56,12 +56,38 @@ public:
              << setw(15) << (isAvailable? "Available" : "Issued")
              << endl;
     }
+
+    // Member function to return a book's ID
+    int getBookId() const {
+        return bookID;
+    }
 };
 
 class Library {
     vector<Book> books;
 
 public:
+
+    // Member function to search a book by its ID
+    void searchBook() {
+        int targetId;
+        bool bookFound = false;
+        cout << "Enter the book ID to search: ";
+        cin >> targetId;
+        
+        // For each loop on the vector of books
+        for(const Book& book : books) {
+            if(book.getBookId() == targetId) {
+                bookFound = true;
+                cout << "\nBook Found\n";
+                book.displayBook();
+                break;
+            }
+        }
+        if(!bookFound) {
+            cout << "\nBook Not Found!\n";  
+        }
+    }
     // functions to add and view books
     // funcitons to issue and return books
     // functions to load and save file data
@@ -72,7 +98,10 @@ int main() {
     // create a library object
     Book b;
     b.addBook();
-    b.displayBook(); 
+
     // display the menu
+    b.displayBook(); 
+
+    
     return 0;
 }
